@@ -40,7 +40,7 @@ def load_train_data(dataset, generator, target_shape):
         dataset + '/train',
         target_size=target_shape,
         batch_size=128,
-        color_mode="rgb",
+        # color_mode="rgb",
         shuffle=True,
         class_mode="categorical",
         seed=42,
@@ -57,7 +57,7 @@ def load_val_data(dataset, generator, target_shape):
         dataset + '/val',
         target_size=target_shape,
         batch_size=128,
-        color_mode="rgb",
+        # color_mode="rgb",
         shuffle=True,
         class_mode='categorical',
         seed=42
@@ -74,7 +74,7 @@ def load_test_data(dataset, generator, target_shape):
     test = generator.flow_from_directory(
         dataset + '/test',
         target_size=target_shape,
-        color_mode="rgb",
+        # color_mode="rgb",
         shuffle=False,
         class_mode=None,
         seed=42
