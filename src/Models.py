@@ -95,6 +95,7 @@ Train the given model with given data and parameter
 Save the trained model in saved_model
 Save the history object as csv in History
 """
+# def train_save(model, name, train, val, epochs, batch, train_step, val_step):
 def train_save(model, name, train, val, epochs, batch):
     early = EarlyStopping(monitor='val_accuracy', min_delta=0, patience=30, verbose=1, mode='auto')
     history = model.fit(
@@ -102,7 +103,6 @@ def train_save(model, name, train, val, epochs, batch):
         validation_data=val,
         epochs=epochs,
         batch_size=batch,
-        # Data is not a lot we can ignore train and val steps
         # steps_per_epoch=train_step,
         # validation_steps=val_step,
         callbacks=[early]
