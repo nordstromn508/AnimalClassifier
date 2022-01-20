@@ -6,7 +6,7 @@ from glob import glob
 import numpy as np
 from src import DataLoader, Models
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 '''
 Set path and model parameters 

@@ -9,6 +9,7 @@ from tensorflow.keras.models import Model, Sequential
 from tensorflow.keras.optimizers import SGD, Adam
 import pandas as pd
 import numpy as np
+from time import time
 
 '''
 VGG - 16 from scratch
@@ -90,6 +91,44 @@ def vgg_pretrained(input_shape, fine_tuning=False):
 
     return model
 
+
+def vgg16_no_weights(input_shape, output_shape, verbose=False, loss='binary_crossentropy', activation='softmax',
+                     optimizer='adam', metrics=None):
+    """
+    create a vgg16 network from keras of a custom input layer shape, output layer shape, and dropped weights
+    :param activation: activation function to be used for output layer
+    :param metrics: list of string metrics to be tracked over epochs
+    :param optimizer: optimization algorithms to be used for minimizing the loss function
+    :param loss: loss function to calculate loss between epochs
+    :@author: https://towardsdatascience.com/step-by-step-vgg16-implementation-in-keras-for-beginners-a833c686ae6c
+    creates our algorithm to learn from our dataset.
+    :param input_shape: shape of input for model
+    :param output_shape: shape of output
+    :param verbose: option to print details about model
+    :return: the model object, time taken to create the model.
+    """
+
+    start = time.time()
+
+    if metrics is None:
+        metrics = ['accuracy']
+
+    model = PretrainedModel(
+        weights=None,
+        input_tensor=None,
+        input_shape=input_shape,
+        pooling=None,
+        classes=output_shape,
+        classifier_activation=activation)
+
+    model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
+
+    if verbose:
+        model.summary()
+
+    return model, time.time() - start
+
+
 """
 Train the given model with given data and parameter
 Save the trained model in saved_model
@@ -97,7 +136,7 @@ Save the history object as csv in History
 """
 # def train_save(model, name, train, val, epochs, batch, train_step, val_step):
 def train_save(model, name, train, val, epochs, batch):
-    early = EarlyStopping(monitor='val_accuracy', min_delta=0, patience=30, verbose=1, mode='auto')
+    early = EarlyStopping(monitor='val_accuracy', min_delta=0, patience=5, verbose=1, mode='auto')
     history = model.fit(
         train,
         validation_data=val,
@@ -111,4 +150,4 @@ def train_save(model, name, train, val, epochs, batch):
 
     # convert the history.history dict to a pandas DataFrame:
     hist_df = pd.DataFrame(history.history)
-    hist_df.to_csv('./history/' + name + '_history.csv', index=False)
+    hist_df.to_csv('../history/' + name + '_history.csv', index=False)
