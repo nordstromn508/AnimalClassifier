@@ -5,6 +5,8 @@ import os
 from glob import glob
 import numpy as np
 from src import DataLoader, Models
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
 
 # os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
@@ -38,6 +40,18 @@ Train models
 vgg16 = Models.vgg16((180, 180, 3))
 Models.train_save(vgg16, 'Vgg16',
                   train_data, val_data, EPOCHS, BATCH)
+
+# Creating confusion matrix
+truth = val_data.classes
+pred = [np.argmax(k) for k in vgg16.predict(val_data)]
+# print("Truth: {}".format(truth[:20]))
+# print("Prediction: {}".format(pred[:20]))
+cm = confusion_matrix(truth, pred)
+print("Confusion Matrix:\n {}".format(cm))
+
+disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+disp.plot(cmap=plt.cm.Blues)
+plt.show()
 
 # vgg16_tf = Models.vgg_pretrained((180, 180, 3))
 # Models.train_save(vgg16_tf, 'Vgg16_transfer_learning',

@@ -136,7 +136,7 @@ Save the history object as csv in History
 """
 # def train_save(model, name, train, val, epochs, batch, train_step, val_step):
 def train_save(model, name, train, val, epochs, batch):
-    early = EarlyStopping(monitor='val_accuracy', min_delta=0, patience=5, verbose=1, mode='auto')
+    early = EarlyStopping(monitor='val_accuracy', min_delta=0, patience=1, verbose=1, mode='auto')
     history = model.fit(
         train,
         validation_data=val,

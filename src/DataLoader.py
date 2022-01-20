@@ -41,7 +41,7 @@ def load_train_data(dataset, generator, target_shape):
         target_size=target_shape,
         batch_size=64,
         # color_mode="rgb",
-        shuffle=True,
+        shuffle=False,
         class_mode="categorical",
         seed=42,
     )
@@ -58,7 +58,7 @@ def load_val_data(dataset, generator, target_shape):
         target_size=target_shape,
         batch_size=64,
         # color_mode="rgb",
-        shuffle=True,
+        shuffle=False,
         class_mode='categorical',
         seed=42
     )
