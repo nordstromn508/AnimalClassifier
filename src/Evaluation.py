@@ -45,3 +45,6 @@ def confusion_matrix(predictions, ground_truth, plot=True):
         disp.plot(cmap=plt.cm.Blues)
         plt.show()
     return 0
+
+
+# plot_history('../history/Vgg16_history.csv')

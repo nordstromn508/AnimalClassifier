@@ -22,9 +22,12 @@ DEFAULT_GENERATOR = ImageDataGenerator(rescale=1./255)
 # Modify this for data augmentation
 DATA_AUGMENTATION_GENERATOR = ImageDataGenerator(
     rescale=1./255,
+    rotation_range=20,
+    width_shift_range=0.1,
+    height_shift_range=0.1,
+    shear_range=0.1,
     zoom_range=0.2,
-    rotation_range=10,
-    vertical_flip=True,
+    horizontal_flip=True,
     fill_mode='nearest'
 )
 
@@ -40,7 +43,7 @@ def load_train_data(dataset, generator, target_shape):
         dataset + '/train',
         target_size=target_shape,
         batch_size=32,
-        # color_mode="rgb",
+        color_mode="rgb",
         shuffle=False,
         class_mode="categorical",
         seed=42,
@@ -57,7 +60,7 @@ def load_val_data(dataset, generator, target_shape):
         dataset + '/val',
         target_size=target_shape,
         batch_size=32,
-        # color_mode="rgb",
+        color_mode="rgb",
         shuffle=False,
         class_mode='categorical',
         seed=42
@@ -75,7 +78,7 @@ def load_test_data(dataset, generator, target_shape):
         dataset + '/test',
         target_size=target_shape,
         batch_size=32,
-        # color_mode="rgb",
+        color_mode="rgb",
         shuffle=False,
         class_mode='categorical',
         seed=42
